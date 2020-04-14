@@ -1,8 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--beans: 컨테이너에서 관리하는객체  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- 왼팔 세터 -->
+	<bean class="com.iu.s3.robot.LeftArm" id="leftArm">
+		<property name="name" value="iu"></property>
+		<property name="size" value="20"></property>
+	</bean>
+	
+	<!-- 오른팔 생성자  -->
+	<bean class="com.iu.s3.robot.RightArm" id="rightArm">
+		<!--오른팔 생성자 방법 1 ***-->
+		 
+		<constructor-arg name="color" value="red"></constructor-arg>
+		<constructor-arg name="power" value="30"></constructor-arg>
+		
+		 
+		<!--오른팔 생성자 방법 2-->
+		<!-- 
+		<constructor-arg index="0" value="20"></constructor-arg>
+		<constructor-arg index="1" value="red"></constructor-arg>
+		 -->
+		 
+		<!-- 오른팔 생성자 방법 3-->		
+		<!-- 
+		<constructor-arg type="java.lang.Integer" value="20"></constructor-arg>
+		<constructor-arg type="java.lang.String" value="red"></constructor-arg>
+		 -->
+	</bean>
+	
+	
+	<!--로봇만들기 2 생성자로 -->
+	<bean class="com.iu.s3.robot.Robot" id="r2">
+		<constructor-arg name="leftArm" ref="leftArm"></constructor-arg>
+		<constructor-arg name="rightArm" ref="rightArm"></constructor-arg>
+	</bean>
+	
+	<!--로봇만들기  1 세터로 -->
+	<bean class="com.iu.s3.robot.Robot" id="r1">
+		<property name="leftArm" ref="leftArm"></property>
+		<property name="rightArm" ref="rightArm"></property>
+	</bean>
+	
+	
+	<!--   클래스명	   참조변수명                       생성자  -->
+	<!-- MemberDAO memberDAO = new MemberDAO()   이게 밑에랑 같은 코드-->
+	<bean class="com.iu.s3.member.MemberDAO" id="memberDAO"></bean>
+	
+	<!-- MemberService memberService = new MemberService() -->
+	<bean class="com.iu.s3.member.MemberService" id="memberService" >
+	
+	<!-- memberService.setMemberDAO(memberDAO)  이게 밑에랑 같은 코드-->
+		<property name="memberDAO" ref="memberDAO" ></property>
+	</bean>
+	
+	
 		
 </beans>
